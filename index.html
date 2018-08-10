@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>YUV Player</title>
+    <script src="./JS/player.js"></script>
+</head>
+
+<body>
+    <div class="container" id="vidPlayerComp">
+        <div class="row playerTop">
+            <span class="col-md-5" style="padding-left: 0px; padding-right: 0px;height:20px">
+	           <span class="col-md-2" style="padding-left: 3px; padding-right: 0px;">
+	             <img src="./img/video-icon.png" style="width: 20px;"/>
+	           </span>
+
+            </span>
+        </div>
+        <div class="row canvasDiv">
+            <canvas id="canvas">
+            </canvas>
+        </div>
+        <div class="row playerTop">
+            <span class="col-md-4 no-padding" style="padding-right: 0px; padding-left: 0px; width: 55px; float: right;">
+		     <img src="./img/fullscreen.png" class="fullscreen" onclick="fullscreen()">
+            </span>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            var socketURL = 'ws://localhost:8080';
+            var ws = new WebSocket(socketURL);
+            ws.binaryType = 'arraybuffer';
+            ws.addEventListener('message', function(event) {
+                var canvas = document.getElementById("canvas");
+                var renderContext = setupCanvas(canvas, {
+                    preserveDrawingBuffer: false
+                });
+                /* Width & height must be same as resolution of YUV frame*/
+                var width = 352,
+                    height = 288,
+                    ylen = width * height,
+                    uvlen = (width / 2) * (height / 2);
+
+                renderFrame(renderContext, new Uint8Array(event.data), width, height, ylen, uvlen);
+
+            });
+        }
+    </script>
+</body>
+
+</html>

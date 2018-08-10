@@ -1,0 +1,36 @@
+.playerTop {
+    width: 356px;
+    height: 25px;
+    background-color: rgba(17, 48, 69, 0.9);
+}
+
+#vidPlayerComp {
+    width: 360px;
+    height: 342px;
+    background-color: grey;
+    border: 2px solid rgba(17, 48, 69, 0.9);
+    position: absolute;
+    z-index: 10;
+    margin-left: 400px;
+    margin-top: 100px;
+}
+
+.canvasDiv {
+    width: 352px;
+    height: 288px
+}
+
+#canvas {
+    width: 356px;
+    height: 288px;
+}
+
+.no-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.fullscreen {
+    width: 26px;
+    float: right;
+}
